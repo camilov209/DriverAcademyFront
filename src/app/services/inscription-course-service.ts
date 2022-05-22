@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { enviroment } from "../enviroments/enviroment";
+import { environment } from "../../environments/environment";
 import { IInscriptionModelRequest } from "../models/request/inscription-model-request";
 
 @Injectable({
@@ -13,6 +13,6 @@ export class InscriptionCourseService {
 
     saveInscriptionModules(inscriptionRequest: IInscriptionModelRequest): Observable<void> {
         return this.http.post<void>(
-            `${enviroment.endpoint_backend}/inscription`, inscriptionRequest);
+            `${environment.endpoint_backend}/inscription`, inscriptionRequest);
     }
 }
