@@ -1,6 +1,47 @@
-<mat-toolbar-row>
-    <span>Third Line</span>
-    <span class="example-spacer"></span>
-    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
-    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
-</mat-toolbar-row>
+<h2 mat-dialog-title>Registro</h2>
+<form [formGroup]="formGroupStudent" (ngSubmit)="saveStudent()">
+    <mat-dialog-content class="mat-typography">
+        <mat-form-field appearance="fill">
+            <mat-label>Nombre y apellido</mat-label>
+            <input matInput maxlength="60" formControlName="studentName" #input [value]="input.value.toUpperCase()">
+            <mat-error *ngIf="formGroupStudent.get('studentName')?.hasError('required') &&
+             formGroupStudent.get('studentName')?.touched">Campo requerido</mat-error>
+            <mat-error *ngIf="formGroupStudent.get('studentName')?.hasError('minlength') &&
+             formGroupStudent.get('studentName')?.touched">Campo no cumple con el número minimo de caracteres.</mat-error>
+            <mat-error *ngIf="formGroupStudent.get('studentName')?.hasError('pattern') &&
+            formGroupStudent.get('studentName')?.touched">Formato no válido.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Identificación</mat-label>
+            <input matInput maxlength="12" formControlName="studentIdentification">
+            <mat-error *ngIf="formGroupStudent.get('studentIdentification')?.hasError('required') &&
+             formGroupStudent.get('studentIdentification')?.touched">Campo requerido</mat-error>
+            <mat-error *ngIf="formGroupStudent.get('studentIdentification')?.hasError('minlength') &&
+             formGroupStudent.get('studentIdentification')?.touched">Campo no cumple con el número minimo de caracteres.</mat-error>
+            <mat-error *ngIf="formGroupStudent.get('studentIdentification')?.hasError('pattern') &&
+            formGroupStudent.get('studentIdentification')?.touched">Formato no válido.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Edad</mat-label>
+            <input matInput maxlength="3" formControlName="studentAge">
+            <mat-error *ngIf="formGroupStudent.get('studentAge')?.hasError('required') &&
+             formGroupStudent.get('studentAge')?.touched">Campo requerido.</mat-error>
+            <mat-error *ngIf="formGroupStudent.get('studentAge')?.hasError('minlength') &&
+             formGroupStudent.get('studentAge')?.touched">Campo no cumple con el número minimo de caracteres.</mat-error>
+             <mat-error *ngIf="formGroupStudent.get('studentAge')?.hasError('pattern') &&
+             formGroupStudent.get('studentAge')?.touched">Formato no válido.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Tipo de licencia</mat-label>
+            <mat-select formControlName="studentLicense">
+                <mat-option *ngFor="let license of licenses" [value]="license.licenseId">{{license.licenseName}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formGroupStudent.get('studentLicense')?.hasError('required') &&
+             formGroupStudent.get('studentLicense')?.touched">Campo requerido</mat-error>
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancelar</button>
+        <button mat-button mat-dialog-close="{{statusCloseDialog}}" cdkFocusInitial type="submit" [disabled]="formGroupStudent.invalid">Guardar</button>
+    </mat-dialog-actions>
+</form> 

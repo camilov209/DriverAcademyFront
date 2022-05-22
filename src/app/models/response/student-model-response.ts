@@ -1,6 +1,9 @@
+import { ILicenseModelResponse } from "./license-model-response"
+
 export interface IStudentModelResponse {
-    studentId: string,
+    studentId: number,
     studentName: string,
     studentAge: string,
     studentIdentification: string
+    license: ILicenseModelResponse
 }

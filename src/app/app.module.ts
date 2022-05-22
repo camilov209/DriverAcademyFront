@@ -11,7 +11,10 @@ import { AngularMaterialModule } from './material.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatToolbarModule, 
     MatIconModule,
     MatTableModule,
-    HttpClientModule
+    MatDialogModule,
+    HttpClientModule,
+    MatSnackBarModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

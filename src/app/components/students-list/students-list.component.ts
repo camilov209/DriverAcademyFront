@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { StudentService } from 'src/app/services/student-service';
 import { IStudentModelResponse } from '../../models/response/student-model-response';
+import { MatDialog } from '@angular/material/dialog';
+import { AddStudentComponent } from '../add-student/add-student.component';
 
 export interface PeriodicElement {
   name: string;
@@ -18,10 +20,10 @@ export interface PeriodicElement {
 })
 export class StudentsListComponent implements OnInit {
 
-  displayedColumns: string[] = ['studentId', 'studentName', 'studentIdentification', 'studentAge'];
+  displayedColumns: string[] = ['studentId', 'studentName', 'studentIdentification', 'studentAge', 'license'];
   dataSource = new MatTableDataSource<IStudentModelResponse>(); 
 
-  constructor(private studentService: StudentService) { }
+  constructor(private studentService: StudentService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getAllStudents();
@@ -33,4 +35,17 @@ export class StudentsListComponent implements OnInit {
     });
   }
 
+  openDialogAddStudent() {
+    const dialogRef = this.dialog.open(AddStudentComponent, {
+      width: '500px',
+      //data: {name: this.name, animal: this.animal},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.getAllStudents();
+      }
+    });
+  }
+  
 }
