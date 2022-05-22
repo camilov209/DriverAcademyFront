@@ -61,7 +61,7 @@ export class InscriptionStudentComponent implements OnInit {
         this.dataSource.data = studentResponse;
       },
       error: (error) => { 
-        console.log(error);
+        this.alertActionHelper.showAlertHelper(error.error.message, true);  
        }
     });
   }
@@ -104,9 +104,6 @@ export class InscriptionStudentComponent implements OnInit {
       students: studentInscription,
       modules: this.modulesInscriptionRequest
     };
-
-    console.log(this.modulesInscriptionRequest);
-
     if(this.modulesInscriptionRequest.length > 0) {
       this.inscriptionService.saveInscriptionModules(inscriptionRequest).subscribe({
         next: () => {
