@@ -1,7 +1,7 @@
 import { ICourseModelResponse } from "./course-model-response";
 
-export interface IModuleDetailResponse {
+export interface IModuleModelResponse {
     moduleId: number,
     moduleName: string,
-    courses: ICourseModelResponse
+    courses: Array<ICourseModelResponse>
 }

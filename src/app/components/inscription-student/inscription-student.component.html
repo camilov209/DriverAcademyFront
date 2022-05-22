@@ -1,8 +1,91 @@
 <mat-card>
-    <mat-card-title>Actions Buttons</mat-card-title>
-    <mat-card-subtitle>End</mat-card-subtitle>
-    <mat-card-actions align="end">
-      <button mat-button>Like</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
+    <mat-card-title>Información del estudiante</mat-card-title>
+    <mat-card-subtitle>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table class-table">
+        <!-- Student Id Column -->
+        <ng-container matColumnDef="studentId">
+          <th mat-header-cell *matHeaderCellDef>Id.</th>
+          <td mat-cell *matCellDef="let element">{{element.studentId}}</td>
+        </ng-container>
+      
+        <!-- Student Name Column -->
+        <ng-container matColumnDef="studentName">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let element">{{element.studentName}}</td>
+        </ng-container>
+
+        <!-- Student Identification Column -->
+        <ng-container matColumnDef="studentIdentification">
+          <th mat-header-cell *matHeaderCellDef>Identificación</th>
+          <td mat-cell *matCellDef="let element">{{element.studentIdentification}}</td>
+        </ng-container>
+      
+        <!-- Student Age Column -->
+        <ng-container matColumnDef="studentAge">
+          <th mat-header-cell *matHeaderCellDef>Edad</th>
+          <td mat-cell *matCellDef="let element">{{element.studentAge}}</td>
+        </ng-container>
+
+        <!-- License Column -->
+        <ng-container matColumnDef="license">
+          <th mat-header-cell *matHeaderCellDef>Tipo de licencia</th>
+          <td mat-cell *matCellDef="let element">{{element.license.licenseName}}</td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+            mat-row
+            *matRowDef="let student; columns: displayedColumns;"
+        ></tr>
+      </table>
+    </mat-card-subtitle>
+</mat-card>
+
+<mat-card style="margin-top: 3%;">
+  <mat-card-title>Modulos y cursos registrados</mat-card-title>
+  <mat-card-subtitle style="margin-top: 3%;">
+    <mat-accordion class="example-headers-align" multi *ngIf="!isEmptyInscriptions">
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false"
+                           *ngFor="let module of modulesInscription">
+        <mat-expansion-panel-header >
+          <mat-panel-title>
+            <b>Módulo</b>: {{module.moduleName | titlecase}}
+          </mat-panel-title>
+          <mat-panel-description>
+            Información del curso inscrito.
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="margin-course-accordion">
+          <p><b>Curso: </b>{{module.courses.courseName | titlecase}}</p>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <p style="text-align: center;" *ngIf="isEmptyInscriptions">El estudiante no está inscrito a ningún módulo.</p>
+  </mat-card-subtitle>
+</mat-card>
+
+<mat-card style="margin-top: 3%;">
+  <mat-card-title>Inscribir un curso</mat-card-title>
+  <mat-card-subtitle style="margin-top: 3%;">
+    <div *ngFor="let module of modulesAllInscription">
+      <h4>Selecciona opcionalmente un curso del módulo: {{module.moduleName}}</h4>
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Seleccione un curso</mat-label>
+        <mat-select>
+          <mat-option (click)="selectCourseInscription(0, module.moduleId)">
+            Ninguno
+          </mat-option>
+          <mat-option *ngFor="let course of module.courses" [value]="course.courseId" 
+          (click)="selectCourseInscription(course.courseId, module.moduleId)">
+            {{course.courseName | titlecase}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-card-subtitle>
+  <mat-card-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-button color="primary" (click)="saveInscriptionCourse()">Inscribir</button>
+  </mat-card-actions>
 </mat-card>

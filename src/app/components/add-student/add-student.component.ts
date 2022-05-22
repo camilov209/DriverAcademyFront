@@ -26,7 +26,7 @@ export class AddStudentComponent implements OnInit {
       studentIdentification: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(12), Validators.pattern("^[0-9]*$")]),
       studentAge: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(3), Validators.pattern("^[0-9]*$")]),
       studentLicense: new FormControl('', Validators.required),
-    })
+    });
   }
 
   ngOnInit(): void {

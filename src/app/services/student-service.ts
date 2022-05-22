@@ -17,8 +17,8 @@ export class StudentService {
         return this.http.get<IStudentModelResponse[]>(`${enviroment.endpoint_backend}/student`);
     }
 
-    getDetailStudent(id: number): Observable<IStudentDetailModelResponse[]> {
-        return this.http.get<IStudentDetailModelResponse[]>(`${enviroment.endpoint_backend}/student/${id}`);
+    getDetailStudent(id: number): Observable<IStudentDetailModelResponse> {
+        return this.http.get<IStudentDetailModelResponse>(`${enviroment.endpoint_backend}/student/${id}`);
     }
 
     saveStudent(student: IStudentModelRequest): Observable<void> {

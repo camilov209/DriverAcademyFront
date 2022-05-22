@@ -65,6 +65,8 @@ export class StudentsListComponent implements OnInit {
   openDialogInscriptionCourses(studentId: number) {
     const dialogRef = this.dialog.open(InscriptionStudentComponent, {
       width: '800px',
+      height: '90%',
+      autoFocus: false,
       data: { idStudent: studentId }
     });
     dialogRef.afterClosed().subscribe(result => {
