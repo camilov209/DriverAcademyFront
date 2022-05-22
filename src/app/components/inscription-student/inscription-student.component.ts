@@ -88,8 +88,9 @@ export class InscriptionStudentComponent implements OnInit {
     };
 
     if(courseId === 0) {
-      this.modulesInscriptionRequest.splice(this.modulesInscriptionRequest
-        .findIndex(m => m.moduleId == moduleId), 1);
+      this.modulesInscriptionRequest.filter(function(e) {
+        return e.moduleId === moduleId;
+      })
     }else {
       this.modulesInscriptionRequest.push(moduleInscription);  
     }
@@ -103,15 +104,22 @@ export class InscriptionStudentComponent implements OnInit {
       students: studentInscription,
       modules: this.modulesInscriptionRequest
     };
-    this.inscriptionService.saveInscriptionModules(inscriptionRequest).subscribe({
-      next: () => {
-        this.alertActionHelper.showAlertHelper(messages.successful_inscription_save, false);
-        this.dialogRef.close();
-      },
-      error: (error) => {
-        this.alertActionHelper.showAlertHelper(error.error.message, true);
-      }
-    })
+
+    console.log(this.modulesInscriptionRequest);
+
+    if(this.modulesInscriptionRequest.length > 0) {
+      this.inscriptionService.saveInscriptionModules(inscriptionRequest).subscribe({
+        next: () => {
+          this.alertActionHelper.showAlertHelper(messages.successful_inscription_save, false);
+          this.dialogRef.close();
+        },
+        error: (error) => {
+          this.alertActionHelper.showAlertHelper(error.error.message, true);
+        }
+      });
+    }else {
+      this.alertActionHelper.showAlertHelper(messages.error_empty_courses_inscription, true);
+    }
   }
 
 }
