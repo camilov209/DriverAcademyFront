@@ -5,7 +5,8 @@ import { IStudentModelRequest } from 'src/app/models/request/student-model-reque
 import { ILicenseModelResponse } from 'src/app/models/response/license-model-response';
 import { LicenseService } from 'src/app/services/licenses-service';
 import { StudentService } from 'src/app/services/student-service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { AlertActionHelper } from 'src/app/helpers/alert-action-helper';
+import { messages } from '../constants/messages-constant';
 
 @Component({
   selector: 'app-add-student',
@@ -19,7 +20,7 @@ export class AddStudentComponent implements OnInit {
   statusCloseDialog: boolean = false;
 
   constructor(private licenseService: LicenseService, private studentService: StudentService,
-    private snackBar: MatSnackBar) {
+    private alertActionHelper: AlertActionHelper) {
     this.formGroupStudent = new FormGroup({
       studentName: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(60), Validators.pattern(/^[-a-zA-Z\u00C0-\u017F]+(\s+[-a-z\u00C0-\u017F\+A-Z]+)*$/)]),
       studentIdentification: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(12), Validators.pattern("^[0-9]*$")]),
@@ -50,13 +51,13 @@ export class AddStudentComponent implements OnInit {
     }
     
     this.studentService.saveStudent(student).subscribe({
-      complete: () => { this.statusCloseDialog = true; },
+      complete: () => { 
+        this.statusCloseDialog = true; 
+        this.alertActionHelper.showAlertHelper(messages.successful_student_save, false);
+      },
       error: (error) => {
         this.statusCloseDialog = false;
-        this.snackBar.open(error.error.message, '', {
-          duration: 3000,
-          panelClass: ['blue-snackbar']
-        });
+        this.alertActionHelper.showAlertHelper(error.error.message, true);  
       } 
     });
   }

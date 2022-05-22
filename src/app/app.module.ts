@@ -13,8 +13,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AlertActionHelper } from './helpers/alert-action-helper';
 
 @NgModule({
   declarations: [
@@ -34,9 +36,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     HttpClientModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AlertActionHelper],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

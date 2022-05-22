@@ -9,8 +9,12 @@
       <mat-icon class="example-icon" aria-hidden="false" (click)="openDialogAddStudent()" aria-label="Example heart icon">add</mat-icon>
     </mat-toolbar-row>
   </mat-toolbar>
-
-  <div class="center">
+  
+  <div class="center-not-content" *ngIf="isEmptyData">
+    <mat-spinner *ngIf="isLoadingData"></mat-spinner>
+    <h1 *ngIf="!isLoadingData && isEmptyData">No se encontraron registros.</h1>
+  </div>
+  <div class="center" *ngIf="!isEmptyData">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
         <!-- Student Id Column -->
         <ng-container matColumnDef="studentId">
