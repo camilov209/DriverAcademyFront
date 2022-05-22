@@ -6,7 +6,7 @@ import { ILicenseModelResponse } from 'src/app/models/response/license-model-res
 import { LicenseService } from 'src/app/services/licenses-service';
 import { StudentService } from 'src/app/services/student-service';
 import { AlertActionHelper } from 'src/app/helpers/alert-action-helper';
-import { messages } from '../constants/messages-constant';
+import { messages } from '../../constants/messages-constant';
 
 @Component({
   selector: 'app-add-student',

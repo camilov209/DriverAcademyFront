@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable, share } from "rxjs";
 import { enviroment } from "../enviroments/enviroment";
 import { IStudentModelRequest } from "../models/request/student-model-request";
+import { IStudentDetailModelResponse } from "../models/response/student-detail-model";
 import { IStudentModelResponse } from "../models/response/student-model-response";
 
 @Injectable({
@@ -14,6 +15,10 @@ export class StudentService {
 
     getAllStudents(): Observable<IStudentModelResponse[]> {
         return this.http.get<IStudentModelResponse[]>(`${enviroment.endpoint_backend}/student`);
+    }
+
+    getDetailStudent(id: number): Observable<IStudentDetailModelResponse[]> {
+        return this.http.get<IStudentDetailModelResponse[]>(`${enviroment.endpoint_backend}/student/${id}`);
     }
 
     saveStudent(student: IStudentModelRequest): Observable<void> {

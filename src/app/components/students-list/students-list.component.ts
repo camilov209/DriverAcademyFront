@@ -5,6 +5,7 @@ import { IStudentModelResponse } from '../../models/response/student-model-respo
 import { MatDialog } from '@angular/material/dialog';
 import { AddStudentComponent } from '../add-student/add-student.component';
 import { AlertActionHelper } from 'src/app/helpers/alert-action-helper';
+import { InscriptionStudentComponent } from '../inscription-student/inscription-student.component';
 
 export interface PeriodicElement {
   name: string;
@@ -51,10 +52,21 @@ export class StudentsListComponent implements OnInit {
 
   openDialogAddStudent() {
     const dialogRef = this.dialog.open(AddStudentComponent, {
-      width: '500px',
-      //data: {name: this.name, animal: this.animal},
+      width: '500px'
     });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.getAllStudents();
+      }
+    });
+  }
+
+  openDialogInscriptionCourses(studentId: number) {
+    const dialogRef = this.dialog.open(InscriptionStudentComponent, {
+      width: '800px',
+      data: { idStudent: studentId }
+    });
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
         this.getAllStudents();
